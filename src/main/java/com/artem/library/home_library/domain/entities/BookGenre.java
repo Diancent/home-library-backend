@@ -1,0 +1,6 @@
+package com.artem.library.home_library.domain.entities;
+
+public enum BookGenre {
+    FANTASY, SCIENCE_FICTION, DETECTIVE, ROMANCE, ACTION, ADVENTURE,
+    MYSTERY, HORROR, COMEDY, POETRY, DRAMA, HISTORICAL, CHILDREN, PHILOSOPHICAL
+}
