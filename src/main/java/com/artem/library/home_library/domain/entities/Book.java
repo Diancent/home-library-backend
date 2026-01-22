@@ -55,15 +55,15 @@ public class Book {
     }
 
     public Book(String title, String author, int publicationYear,
-                BookLanguage language, BookGenre genre, String description,
-                BookStatus status, int pageCount, String isbn) {
+                BookLanguage language, BookGenre genre,
+                BookStatus status, String description, int pageCount, String isbn) {
         this.title = title;
         this.author = author;
         this.publicationYear = publicationYear;
         this.language = language;
         this.genre = genre;
-        this.description = description;
         this.status = status;
+        this.description = description;
         this.pageCount = pageCount;
         this.isbn = isbn;
     }
