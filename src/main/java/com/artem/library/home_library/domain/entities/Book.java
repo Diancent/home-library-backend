@@ -23,39 +23,40 @@ public class Book {
     @Column(name="publication_year", nullable = false)
     private int publicationYear;
 
+    @Enumerated(EnumType.STRING)
     @Column(name="language")
     private BookLanguage language;
 
+    @Enumerated(EnumType.STRING)
     @Column(name="genre")
     private BookGenre genre;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name="status", nullable = false)
+    private BookStatus status;
 
     @Column(name="description")
     private String description;
 
-    @Column(name="status", nullable = false)
-    private BookStatus status;
-
     @Column(name="page_count", nullable = false)
     private int pageCount;
 
-    @Column(name="isbn", nullable = false)
+    @Column(name="isbn", nullable = false, unique = true)
     private String isbn;
 
-    @Column(name="created", nullable = false)
-    private LocalDateTime created;
+    @Column(name="created_at", nullable = false)
+    private LocalDateTime createdAt;
 
-    @Column(name="updated", nullable = false)
-    private LocalDateTime updated;
+    @Column(name="updated_at", nullable = false)
+    private LocalDateTime updatedAt;
 
     public Book() {
 
     }
 
-    public Book(long id, String title, String author, int publicationYear,
+    public Book(String title, String author, int publicationYear,
                 BookLanguage language, BookGenre genre, String description,
-                BookStatus status, int pageCount, String isbn,
-                LocalDateTime created, LocalDateTime updated) {
-        this.id = id;
+                BookStatus status, int pageCount, String isbn) {
         this.title = title;
         this.author = author;
         this.publicationYear = publicationYear;
@@ -65,8 +66,17 @@ public class Book {
         this.status = status;
         this.pageCount = pageCount;
         this.isbn = isbn;
-        this.created = created;
-        this.updated = updated;
+    }
+
+    @PrePersist
+    protected void onCreate() {
+        this.createdAt = LocalDateTime.now();
+        this.updatedAt = LocalDateTime.now();
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        this.updatedAt = LocalDateTime.now();
     }
 
     public long getId() {
@@ -149,32 +159,25 @@ public class Book {
         this.isbn = isbn;
     }
 
-    public LocalDateTime getCreated() {
-        return created;
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
     }
 
-    public void setCreated(LocalDateTime created) {
-        this.created = created;
-    }
-
-    public LocalDateTime getUpdated() {
-        return updated;
-    }
-
-    public void setUpdated(LocalDateTime updated) {
-        this.updated = updated;
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
     }
 
     @Override
     public boolean equals(Object o) {
+        if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Book book = (Book) o;
-        return id == book.id && publicationYear == book.publicationYear && pageCount == book.pageCount && Objects.equals(title, book.title) && Objects.equals(author, book.author) && language == book.language && genre == book.genre && Objects.equals(description, book.description) && status == book.status && Objects.equals(isbn, book.isbn) && Objects.equals(created, book.created) && Objects.equals(updated, book.updated);
+        return id == book.id && publicationYear == book.publicationYear && pageCount == book.pageCount && Objects.equals(title, book.title) && Objects.equals(author, book.author) && language == book.language && genre == book.genre && Objects.equals(description, book.description) && status == book.status && Objects.equals(isbn, book.isbn);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, author, publicationYear, language, genre, description, status, pageCount, isbn, created, updated);
+        return Objects.hash(id, title, author, publicationYear, language, genre, description, status, pageCount, isbn);
     }
 
     @Override
@@ -190,8 +193,8 @@ public class Book {
                 ", status=" + status +
                 ", pageCount=" + pageCount +
                 ", isbn='" + isbn + '\'' +
-                ", created=" + created +
-                ", updated=" + updated +
+                ", created=" + createdAt +
+                ", updated=" + updatedAt +
                 '}';
     }
 }
