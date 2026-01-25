@@ -6,6 +6,7 @@ import com.artem.library.home_library.repositories.BookRepository;
 import com.artem.library.home_library.services.BookService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -15,6 +16,11 @@ public class BookServiceImpl implements BookService {
 
     public BookServiceImpl(BookRepository bookRepository) {
         this.bookRepository = bookRepository;
+    }
+
+    @Override
+    public List<Book> listBooks() {
+        return bookRepository.findAll();
     }
 
     @Override
