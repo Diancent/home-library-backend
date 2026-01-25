@@ -1,16 +1,27 @@
 services:
-  # Our PostgreSQL database
   db:
-    # The Docker image of postgres -- we're using the latest.
     image: postgres:latest
-    # The ports to expose to the host container
-    # 5432 is the default PostgreSQL port
+    container_name: home-library-db
+    environment:
+      POSTGRES_DB: home_library
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: changemeinprod!
     ports:
       - "5432:5432"
-    # If we accidentally kill the running container, Docker Compose
-    # will restart it.
-    restart: always
-    # The PostgreSQL Docker container uses environment variables to
-    # read configuration, here we set the password.
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  app:
+    build: .
+    container_name: home-library-app
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
     environment:
-      POSTGRES_PASSWORD: changemeinprod!
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/home_library
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: changemeinprod!
+
+volumes:
+  pgdata:
