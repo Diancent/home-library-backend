@@ -10,4 +10,5 @@ public interface BookService {
     Book createBook(Book book);
     Optional<Book> getBook(Long bookId);
     Book updateBook(Long bookId, Book book);
+    void deleteBook(Long bookId);
 }

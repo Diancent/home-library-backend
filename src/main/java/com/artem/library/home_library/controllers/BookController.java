@@ -61,4 +61,9 @@ public class BookController {
         );
         return ResponseEntity.ok(bookMapper.toDto(updatedBook));
     }
+
+    @DeleteMapping(path = "/{book_id}")
+    public void deleteBook(@PathVariable("book_id") Long book_id) {
+        bookService.deleteBook(book_id);
+    }
 }
