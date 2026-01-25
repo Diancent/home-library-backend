@@ -12,7 +12,7 @@ public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id", updatable = false, nullable = false)
-    private long id;
+    private Long id;
 
     @Column(name="title", nullable = false)
     private String title;
@@ -79,7 +79,7 @@ public class Book {
         this.updatedAt = LocalDateTime.now();
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
