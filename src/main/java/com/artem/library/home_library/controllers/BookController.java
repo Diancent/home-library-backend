@@ -52,4 +52,13 @@ public class BookController {
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
+
+    @PutMapping(path = "/{book_id}")
+    public ResponseEntity<BookDto> updateBook(@PathVariable("book_id") Long book_id, @RequestBody BookDto bookDto) {
+        Book updatedBook = bookService.updateBook(
+                book_id,
+                bookMapper.fromDto(bookDto)
+        );
+        return ResponseEntity.ok(bookMapper.toDto(updatedBook));
+    }
 }

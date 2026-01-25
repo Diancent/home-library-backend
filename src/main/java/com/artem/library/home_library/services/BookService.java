@@ -9,4 +9,5 @@ public interface BookService {
     List<Book> listBooks();
     Book createBook(Book book);
     Optional<Book> getBook(Long bookId);
+    Book updateBook(Long bookId, Book book);
 }
