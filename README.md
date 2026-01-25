@@ -1,54 +1,75 @@
 # Home Library Backend
 
-Home Library — це простий Spring Boot бекенд для керування домашньою бібліотекою книг, з підтримкою PostgreSQL бази даних.  
+Home Library is a simple Spring Boot backend for managing a personal book library, with support for a PostgreSQL database.
 
-Проєкт готовий для запуску через Docker, щоб будь-хто міг легко підняти сервіс на своєму комп’ютері або сервері.
+The project is ready to run via Docker, allowing anyone to quickly start the service on their local machine or server.
 
 ---
 
-## Запуск локально через Docker
+## Running Locally via Docker
 
-### Клонування репозиторію
+### Clone the repository
 ```
 git clone https://github.com/Diancent/home-library.git
 cd home-library
 ```
 
-### Запуск всіх сервісів (PostgreSQL + бекенд)
+### Start all services (PostgreSQL + backend)
 ```
 docker compose up --build
 ```
 
-### Перевірка запущених контейнерів
+### Check running containers
 ```
 docker ps
 ```
 
-### Перегляд логів
+### View logs
 ```
 docker compose logs -f
 ```
 
-### Зупинка і видалення контейнерів
+### Stop and remove containers
 ```
 docker compose down
 ```
 
-### Якщо потрібно, можна запустити бекенд вручну
+### Optional: Run the backend manually
 ```
 docker build -t home-library-app .
 docker run -p 8080:8080 --name home-library-app --link home-library-db:db home-library-app
 ```
 
 
-PostgreSQL доступний на localhost:5432
+PostgreSQL is available at localhost:5432
 
-Бекенд доступний на http://localhost:8080
+The backend is available at http://localhost:8080
 
-## Приклади API
+## API Examples
 
-Отримати список книг: GET /books
+Get the list of books: GET /books
 
-Додати нову книгу: POST /books
+Get a book by ID: GET /books/{id}
 
-Автор: Artem Korolchuk
+Add a new book: POST /books
+
+Update a book by ID: PUT /books/{id}
+
+Delete a book by ID: Delete a book by ID
+
+Request body (JSON):
+```
+{
+  "title": "Book Title",
+  "author": "Author Name",
+  "description": "Optional description",
+  "genre": "FANTASY",
+  "language": "ENGLISH",
+  "pageCount": 300,
+  "publicationYear": 2023,
+  "status": "AVAILABLE",
+  "isbn": "1234567890"
+}
+```
+
+Author: Artem Korolchuk
