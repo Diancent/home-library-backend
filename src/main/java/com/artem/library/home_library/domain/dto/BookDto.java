@@ -4,7 +4,7 @@ import com.artem.library.home_library.domain.entities.BookGenre;
 import com.artem.library.home_library.domain.entities.BookLanguage;
 import com.artem.library.home_library.domain.entities.BookStatus;
 
-public record BookDto(long id,
+public record BookDto(Long id,
                       String title,
                       String author,
                       int publicationYear,
